@@ -1,0 +1,37 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('title', $title); ?>
+<?php $this->startSection('content'); ?>
+<?php
+use App\Models\User;
+?>
+ <h2 class="mt-5 ml-2 text-center">Danh sách môn học</h2>
+ <div class="col-11 m-auto">
+ <a href="<?php echo \htmlentities(BASE_URL . 'admin/mon-hoc/tao-moi', ENT_QUOTES, 'UTF-8', false); ?>" class="btn btn-danger">Tạo khóa học mới</a>
+ <table class="table table-hover col-12">
+ <thead>
+ <tr>
+ <th scope="col" class="col-1 text-center">STT</th>
+ <th scope="col" class="col-2 text-center">Tên</th>
+ <th scope="col" class="col-3 text-center">Ảnh</th>
+ <th scope="col" class="col-3 text-center">Mô tả</th>
+ <th scope="col" class="col-2 text-center">Giáo viên</th>
+ <th scope="col" rowspan="2" class="col-1 text-center">Action</th>
+ </tr>
+ </thead>
+ <tbody>
+ <?php $__currentLoopData = $subject_All; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $key=>$subject): $loop = $this->incrementLoopIndices();  ?>
+ <tr>
+ <th scope="row" class="text-center"><?php echo \htmlentities($key+1, ENT_QUOTES, 'UTF-8', false); ?></th>
+ <td class="text-center"><?php echo \htmlentities($subject["name"], ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td><img src="<?php echo \htmlentities($subject['image'], ENT_QUOTES, 'UTF-8', false); ?>" class="col-10" alt=""></td>
+ <td><?php echo \htmlentities($subject["detail"], ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="text-center"><?php echo \htmlentities($author = User::where('id',$subject["author_id"])->first()["name"], ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td><a href="<?php echo \htmlentities(BASE_URL . 'admin/mon-hoc/'. $subject['id']. '/cap-nhat', ENT_QUOTES, 'UTF-8', false); ?>"><i class="bi bi-eraser"></i></a></td>
+ <td><a href="<?php echo \htmlentities(BASE_URL . 'admin/mon-hoc/' . $subject['id'], ENT_QUOTES, 'UTF-8', false); ?>"><i class="bi bi-trash"></i></a></td>
+ </tr>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </tbody>
+ </table>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.navbar'); } ?>

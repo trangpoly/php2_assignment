@@ -1,0 +1,53 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('title', $title); ?>
+<?php $this->startSection('content'); ?>
+<?php
+use App\Models\Quiz;
+use App\Models\StudentQuiz;
+?>
+ <h2 class="mt-5 ml-2 text-center">Thống kê Quiz</h2>
+ <div class="col-11 m-auto">
+ <table class="table table-hover col-12">
+ <thead>
+ <tr>
+ <th scope="col" class="col-1 text-center">STT</th>
+ <th scope="col" class="col-3 text-center">Quiz</th>
+ <th scope="col" class="col-3 text-center">Điểm trung bình</th>
+ <th scope="col" class="col-3 text-center">Điểm cao nhất</th>
+ <th scope="col" class="col-3 text-center">Điểm thấp nhất</th>
+ </tr>
+ </thead>
+ <tbody>
+ <?php $__currentLoopData = $getQuiz; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $key=>$quiz): $loop = $this->incrementLoopIndices();  ?>
+ <tr>
+ <th scope="row" class="text-center"><?php echo \htmlentities($key+1, ENT_QUOTES, 'UTF-8', false); ?></th>
+ <td class="text-center"><?php echo \htmlentities($quiz["name"], ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td class="text-center"> 
+ <?php echo \htmlentities($max_score = StudentQuiz::where('quiz_id',$quiz["id"])->max('score'), ENT_QUOTES, 'UTF-8', false); ?>
+
+ <?php if(isset($max_score)): ?>
+ <!-- <?php echo \htmlentities($max_score, ENT_QUOTES, 'UTF-8', false); ?> -->
+ <?php else: ?>
+ <?php echo \htmlentities("Chưa có question", ENT_QUOTES, 'UTF-8', false); ?>
+
+ <?php endif; ?>
+ </td>
+ <td class="text-center"> Avg</td>
+ <td class="text-center">
+ <?php echo \htmlentities($min_score = StudentQuiz::where('quiz_id',$quiz["id"])->min('score'), ENT_QUOTES, 'UTF-8', false); ?>
+
+ <?php if(isset($min_score)): ?>
+ <!-- <?php echo \htmlentities($min_score, ENT_QUOTES, 'UTF-8', false); ?> -->
+ <?php else: ?>
+ <?php echo \htmlentities("Chưa có question", ENT_QUOTES, 'UTF-8', false); ?>
+
+ <?php endif; ?>
+ </td>
+ </tr>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </tbody>
+ </table>
+ </div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.navbar'); } ?>

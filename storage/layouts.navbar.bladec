@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title><?php echo $this->yieldContent('title'); ?></title>
+ <?php echo $this->runChild('layouts.style'); ?>
+ <?php echo $this->runChild('layouts.script'); ?>
+ <link rel="stylesheet" href="<?php echo \htmlentities(PUBLIC_URL, ENT_QUOTES, 'UTF-8', false); ?>css.css">
+</head>
+<body>
+ <div class="container-fluid p-0">
+ <div id="nav-left" class="col-2 m-0 p-0">
+ <img src="https://i.imgur.com/5EK1lFm.png" class="img-fluid p-2" alt="">
+ <div id="menu" class="col-12 p-0  m-0 d-flex flex-column bd-highlight mb-3 border-top">
+ <a href="<?php echo \htmlentities(BASE_URL . 'admin/dashboard', ENT_QUOTES, 'UTF-8', false); ?>" class="bd-highlight"><i class="bi bi-speedometer2"></i> Dashboard</a>
+ <a href="<?php echo \htmlentities(BASE_URL . 'admin/mon-hoc', ENT_QUOTES, 'UTF-8', false); ?>" class="bd-highlight"><i class="bi bi-book-half"></i> Subjects</a>
+ <a href="<?php echo \htmlentities(BASE_URL . 'admin/quiz?subject_id=0', ENT_QUOTES, 'UTF-8', false); ?>" class="bd-highlight"><i class="bi bi-puzzle"></i> Quizs</a>
+ <a href="<?php echo \htmlentities(BASE_URL . 'admin/question', ENT_QUOTES, 'UTF-8', false); ?>" class="bd-highlight"><i class="bi bi-patch-question"></i> Questions</a>
+ <a href="<?php echo \htmlentities(BASE_URL . 'admin/thong-ke', ENT_QUOTES, 'UTF-8', false); ?>" class="bd-highlight"><i class="bi bi-card-checklist"></i> Thống kê</a>
+ </div>
+ </div>
+ <div id="nav-right" class="col-10 m-0 p-0">
+ <div id="nav" class="col-12 row m-0">
+ <div class="col-4"></div>
+ <input type="text" class="col-4 border border-secondary rounded-pill mt-2 p-2 ps-4 mb-2"
+ placeholder="Search...">
+ <div class="col-2"></div>
+ <div class="icon col-2 pt-2">
+ <a href=""><i class="bi bi-gear-fill "></i></a>
+ <span class="dropdown">
+ <i class="bi bi-person dropdown-toggle" data-toggle="dropdown" aria-expanded="true"></i>
+ <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+ <a href="#" class="dropdown-item">Chào <?php echo \htmlentities($_SESSION['teacher_name'], ENT_QUOTES, 'UTF-8', false); ?>!</a>
+ <a href="#" class="dropdown-item">Cập nhật tài khoản</a>
+ <a href="<?php echo \htmlentities(BASE_URL . 'logout', ENT_QUOTES, 'UTF-8', false); ?>" class="dropdown-item">Đăng xuất</a>
+ </div>
+ </span>
+ </div>
+
+ </div>
+ <div class="col-12 m-0 p-0">
+ <?php echo $this->yieldContent('content'); ?>
+ </div>
+ </div>
+ </div>
+<?php echo $this->yieldContent('script'); ?>
+</body>
+</html>
